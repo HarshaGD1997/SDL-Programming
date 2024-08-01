@@ -33,6 +33,26 @@ int main(int argc, char** argv){
 			if(event.type == SDL_QUIT){
 				gameIsRunning = false;
 			}
+			/*if(event.type == SDL_MOUSEMOTION){
+				std::cout << "mouse motion" << std::endl;
+			}*/
+			if(event.type == SDL_KEYDOWN){
+			
+				/* 
+				 * SDL key sym mapping 
+				 * https://documentation.help/SDL/sdlkey.html
+				 */ 
+
+				if(event.key.keysym.sym == SDLK_a){
+					std::cout << "a" << std::endl;
+				}
+				//std::cout << "key" << std::endl;
+			}
+
+			const Uint8 *state = SDL_GetKeyboardState(NULL);
+			if(state[SDL_SCANCODE_LEFT]){
+				std::cout << "left key was pressed " <<std::endl;
+			}
 
 		}
 
