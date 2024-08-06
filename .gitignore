@@ -1,4 +1,4 @@
 *.pub
 sdl-prog
-./*.txt
+./08-transparent-image-render/file.txt
 
