@@ -1,4 +1,8 @@
 *.pub
 sdl-prog
 file.txt
+prog
+
+build/
+dist/
 
