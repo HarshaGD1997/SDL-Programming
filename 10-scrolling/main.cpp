@@ -1,5 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
+#define WIN_WIDTH 1200
+#define WIN_HEIGHT 600
 
 int main(int argc, char **argv){
 
@@ -16,11 +18,11 @@ int main(int argc, char **argv){
 	SDL_Window *window = SDL_CreateWindow("scrolling",
 					0,
 					0,
-					640,
-					480,
+					WIN_WIDTH,
+					WIN_HEIGHT,
 					SDL_WINDOW_SHOWN);
 
-	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
+	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	SDL_Surface *surface = SDL_LoadBMP("./images/water2.bmp");
 	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_Texture *second_texture = SDL_CreateTextureFromSurface(renderer, surface);
@@ -29,26 +31,26 @@ int main(int argc, char **argv){
 	SDL_Rect rectangle;
 	rectangle.x = 0;
 	rectangle.y = 0;
-	rectangle.w = 640;
-	rectangle.h = 480;
+	rectangle.w = WIN_WIDTH;
+	rectangle.h = WIN_HEIGHT;
 
 	SDL_Rect second_rectangle;
-	second_rectangle.x = -639;
+	second_rectangle.x = -1199;
 	second_rectangle.y = 0;
-	second_rectangle.w = 640;
-	second_rectangle.h = 480;
+	second_rectangle.w = WIN_WIDTH;
+	second_rectangle.h = WIN_HEIGHT;
 
 	SDL_Rect third_rectangle;
 	third_rectangle.x = 0;
 	third_rectangle.y = 0;
-	third_rectangle.w = 640;
-	third_rectangle.h = 480;
+	third_rectangle.w = WIN_WIDTH;
+	third_rectangle.h = WIN_HEIGHT;
 
 	SDL_Rect fourth_rectangle;
 	fourth_rectangle.x = 0;
-	fourth_rectangle.y = -480;
-	fourth_rectangle.w = 640;
-	fourth_rectangle.h = 480;
+	fourth_rectangle.y = -599;
+	fourth_rectangle.w = WIN_WIDTH;
+	fourth_rectangle.h = WIN_HEIGHT;
 
 
 	while(isRunning){
@@ -75,27 +77,27 @@ int main(int argc, char **argv){
 
 		int w, h;
 		SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-		SDL_Delay(50);
+		SDL_Delay(100);
 		//SDL_RenderCopy(renderer, texture, NULL, &rectangle);
 
 		rectangle.x++;
-		if(rectangle.x > 639){
-			rectangle.x = -639;
+		if(rectangle.x > 1199){
+			rectangle.x = -1199;
 		} 
 		
 		second_rectangle.x++;
-		if(second_rectangle.x > 639){
-			second_rectangle.x = -639;
+		if(second_rectangle.x > 1199){
+			second_rectangle.x = -1199;
 		}
 
 		third_rectangle.y++;
-		if(third_rectangle.y > 479){
-			third_rectangle.y = -480;
+		if(third_rectangle.y > 599){
+			third_rectangle.y = -599;
 		}
 
 		fourth_rectangle.y++;
-		if(fourth_rectangle.y > 479){
-			fourth_rectangle.y = -480;
+		if(fourth_rectangle.y > 599){
+			fourth_rectangle.y = -599;
 		}
 			
 		//left-right 

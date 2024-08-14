@@ -2,6 +2,8 @@
 sdl-prog
 file.txt
 prog
+*.txt
+*.ttf
 
 build/
 dist/
