@@ -1,3 +1,4 @@
+## ./directory_script.sh <path>
 
 #!/usr/bin/bash
 
