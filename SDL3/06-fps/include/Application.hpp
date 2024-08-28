@@ -1,9 +1,10 @@
 #include <SDL3/SDL.h>
+#include <stdlib.h>
 
 struct Rect{
 	
 	SDL_FRect rect;
-	Rect(int x, int y, int w, int h){
+	Rect(int x, int y, int w, int h, int number){
 		rect.x = x;
 		rect.y = y;
 		rect.h = h;
@@ -14,13 +15,15 @@ struct Rect{
 		return rect;
 	}
 
+	
+
 
 };
 
 
 struct Application{
 	Application(int argc, char **argv){
-		mRect = new Rect(0,0,40,80);
+		mRect = new Rect(0,0,40,80,1);
 		StartUp();
 	}
 	~Application(){
@@ -48,16 +51,28 @@ struct Application{
 		mRenderer = SDL_CreateRenderer(mWindow, NULL);
 		if(mRenderer == nullptr){
 			SDL_Log("Error with renderer");
-		}
+		}		
+		rect = mRect->GetRect();
 
 	}
 
 	void Loop(){
-	
+
+		Uint64 lastTime, currentTime;
+		Uint64 frameElapsed = 0;
+		lastTime = SDL_GetTicks();
 		while(mRun){
 			Input();
 			Update();
 			Render();
+			frameElapsed++;
+			currentTime = SDL_GetTicks();
+			if(currentTime > lastTime+1000){
+				SDL_Log("1 sec");
+				SDL_Log("FPS : %lu",frameElapsed);
+				frameElapsed = 0;
+				lastTime = SDL_GetTicks();
+			}
 		}
 	}
 
@@ -71,14 +86,26 @@ struct Application{
 	}
 
 	void Update(){
+		rect.x += xAcc;
 	
+		//SDL_Log("%d", xAcc);
+		//SDL_Log("%f", rect.x);
+		if(rect.x + rect.w >= 640){
+			//SDL_Delay(2000);
+
+			xAcc = -xAcc;
+		}
+		if(rect.x <= 0){
+			xAcc = -xAcc;
+		}
+
 	}
 
 	void Render(){
 		SDL_SetRenderDrawColor(mRenderer, 0xff, 0, 0, SDL_ALPHA_OPAQUE);
 		SDL_RenderClear(mRenderer);
 		SDL_SetRenderDrawColor(mRenderer, 0, 0, 0xff, SDL_ALPHA_OPAQUE);
-		SDL_FRect rect = mRect->GetRect();
+
 		SDL_RenderRect(mRenderer,&rect);
 		SDL_RenderPresent(mRenderer);
 		
@@ -90,4 +117,6 @@ struct Application{
 		SDL_Window *mWindow;
 		SDL_Renderer *mRenderer;
 		Rect *mRect;
+		SDL_FRect rect;
+		int xAcc{5};
 };
