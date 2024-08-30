@@ -31,6 +31,8 @@ struct Application{
 		mRect.y = 5.0f;
 		mXVelocity = 5.0f;
 		mYVelocity = 5.0f;
+		mRect2.x = 40.0f;
+		mRect2.y = 20.0f;
 	
 	}
 
@@ -38,9 +40,21 @@ struct Application{
 
 		mRect.x += mXVelocity;
 		mRect.y += mYVelocity;
+	
+		mRect2.x += mXVelocity;
+		mRect2.y += mYVelocity;
+
+		if(mRect2.x + mRect2.w > 640 || mRect2.x < 0){
+			mXVelocity = -mXVelocity;
+		}
+
+		if(mRect2.y + mRect2.h > 480 || mRect2.y < 0){
+			mYVelocity = -mYVelocity;
+		}
 
 		if(mRect.x + mRect.w  > 640 || mRect.x < 0){
 			mXVelocity = -mXVelocity;		
+			
 		}
 		if(mRect.y + mRect.h > 480 || mRect.y < 0){
 			mYVelocity = -mYVelocity;
@@ -56,8 +70,10 @@ struct Application{
 		SDL_SetRenderDrawColor(mRenderer, 0, 0xff, 0, SDL_ALPHA_OPAQUE);	
 		SDL_RenderRect(mRenderer, &mRect);
 		
-	
+		SDL_SetRenderDrawColor(mRenderer, 0, 0, 0xff, SDL_ALPHA_OPAQUE);
+		SDL_RenderRect(mRenderer, &mRect2);	
 		SDL_RenderPresent(mRenderer);
+
 	
 	}
 
@@ -85,6 +101,7 @@ struct Application{
 		SDL_Window *mWindow;
 		SDL_Renderer *mRenderer;
 		SDL_FRect mRect{0.0f, 0.0f, 40.0f, 20.0f};
+		SDL_FRect mRect2{0.0f, 0.0f, 20.0f, 40.0f};
 		float mXVelocity;
 		float mYVelocity;
 
